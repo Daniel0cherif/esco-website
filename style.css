@@ -11,12 +11,12 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: "Courier New", Courier, monospace; /* Tech/Digital vibe */
-  overflow: hidden; /* Prevent scroll for the immersive hero section */
+  overflow-x: hidden; /* Allow vertical scroll */
 }
 
 /* --- Canvas Background --- */
 #bg-canvas {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -118,4 +118,59 @@ nav a {
 nav a:hover {
   color: var(--neon-purple);
   text-shadow: 0 0 10px var(--neon-purple);
+}
+
+/* --- Booking Form Section --- */
+#booking {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(5, 5, 5, 0.8); /* Dark overlay to make text readable */
+}
+
+.form-group {
+  position: relative;
+  margin: 2rem 0;
+  width: 300px;
+}
+
+/* Interactive Input Animation */
+.form-input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 1rem;
+  color: #fff;
+  border: none;
+  border-bottom: 2px solid #555;
+  outline: none;
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.form-label {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.3s ease all;
+}
+
+/* When input is focused or has valid text (typed in) */
+.form-input:focus ~ .form-label,
+.form-input:valid ~ .form-label {
+  top: -20px;
+  font-size: 0.8rem;
+  color: var(--neon-blue);
+  text-shadow: 0 0 8px var(--neon-blue);
+}
+
+.form-input:focus,
+.form-input:valid {
+  border-bottom-color: var(--neon-blue);
+  box-shadow: 0 5px 10px -5px rgba(0, 243, 255, 0.3);
 }
