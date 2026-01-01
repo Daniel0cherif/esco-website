@@ -15,6 +15,7 @@ resize();
 
 // --- Animation Loop ---
 let time = 0;
+let speed = 0.02; // Base speed
 
 function animate() {
   // Create a trail effect by fading out the previous frame slightly
@@ -50,25 +51,63 @@ function animate() {
   }
   ctx.stroke();
 
-  time += 0.05; // Speed of animation
+  time += speed;
   requestAnimationFrame(animate);
 }
 animate();
 
 // --- Interaction ---
 const btn = document.getElementById("play-btn");
-btn.addEventListener("click", () => {
-  // In a real app, this would start the audio context or play a track
-  btn.innerText = "VIBE ACTIVE";
-  btn.style.borderColor = "#bc13fe";
-  btn.style.color = "#bc13fe";
-  btn.style.boxShadow = "0 0 50px #bc13fe";
+btn.addEventListener(
+  "click",
+  () => {
+    // In a real app, this would start the audio context or play a track
+    btn.innerText = "VIBE ACTIVE";
+    btn.style.borderColor = "#bc13fe";
+    btn.style.color = "#bc13fe";
+    btn.style.boxShadow = "0 0 50px #bc13fe";
 
-  // Speed up animation to simulate high energy
-  const speedUp = setInterval(() => {
-    time += 0.5;
-  }, 16);
+    // Speed up animation to simulate high energy
+    const speedUp = setInterval(() => {
+      time += 0.1;
+    }, 16);
 
-  // Reset after a brief moment for effect
-  setTimeout(() => clearInterval(speedUp), 500);
+    // Reset after a brief moment for effect
+    setTimeout(() => {
+      clearInterval(speedUp);
+    }, 2000);
+  },
+  { once: true }
+);
+
+// --- Music Section Interaction ---
+const tracks = document.querySelectorAll(".track-card");
+const audioPlayer = new Audio(); // Create the audio player
+
+tracks.forEach((track) => {
+  track.addEventListener("click", () => {
+    // Check if already playing
+    const isPlaying = track.classList.contains("playing");
+
+    // Reset all tracks
+    tracks.forEach((t) => t.classList.remove("playing"));
+    speed = 0.05; // Reset visualizer speed
+
+    // Stop any currently playing music
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+
+    if (!isPlaying) {
+      // Play this track
+      track.classList.add("playing");
+      speed = 0.05; // Increase visualizer speed for music
+
+      // Get the song path and play it
+      const song = track.getAttribute("data-audio");
+      if (song) {
+        audioPlayer.src = song;
+        audioPlayer.play();
+      }
+    }
+  });
 });
