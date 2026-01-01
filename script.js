@@ -58,27 +58,23 @@ animate();
 
 // --- Interaction ---
 const btn = document.getElementById("play-btn");
-btn.addEventListener(
-  "click",
-  () => {
-    // In a real app, this would start the audio context or play a track
-    btn.innerText = "VIBE ACTIVE";
-    btn.style.borderColor = "#bc13fe";
-    btn.style.color = "#bc13fe";
-    btn.style.boxShadow = "0 0 50px #bc13fe";
+btn.addEventListener("click", () => {
+  // In a real app, this would start the audio context or play a track
+  btn.innerText = "VIBE ACTIVE";
+  btn.style.borderColor = "#bc13fe";
+  btn.style.color = "#bc13fe";
+  btn.style.boxShadow = "0 0 50px #bc13fe";
 
-    // Speed up animation to simulate high energy
-    const speedUp = setInterval(() => {
-      time += 0.1;
-    }, 16);
+  // Speed up animation to simulate high energy
+  const speedUp = setInterval(() => {
+    time += 0.1;
+  }, 16);
 
-    // Reset after a brief moment for effect
-    setTimeout(() => {
-      clearInterval(speedUp);
-    }, 2000);
-  },
-  { once: true }
-);
+  // Reset after a brief moment for effect
+  setTimeout(() => {
+    clearInterval(speedUp);
+  }, 2000);
+});
 
 // --- Music Section Interaction ---
 const tracks = document.querySelectorAll(".track-card");
